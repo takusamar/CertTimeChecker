@@ -1,6 +1,6 @@
 import { Box, Button, TextField, Typography } from "@material-ui/core"
 import React, { useContext, useEffect, useState } from "react"
-import { auth, db } from "../../firebase"
+import { app, db } from "../../firebase"
 import { AuthContext } from "../molecules/Auth"
 
 export const SignUp: React.FC = (props: any) => {
@@ -17,6 +17,19 @@ export const SignUp: React.FC = (props: any) => {
     })
   }
 
+  const onSubmit = async () => {
+    try {
+      await app.auth().createUserWithEmailAndPassword(email, password)
+      alert("登録されました")
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+
+  const onBack = () => {
+    props.history.push("/")
+  }
+
   useEffect(() => {
     if (loginUser) {
       setUserInfo(loginUser.uid)
@@ -25,13 +38,14 @@ export const SignUp: React.FC = (props: any) => {
   }, [loginUser])
 
   return (
-    <Box pl={2}>
+    <Box>
       <Typography variant="h5">認定時間チェッカー</Typography>
       <Box mt={2}>
-        <Typography variant="h6">新規ユーザー</Typography>
+        <Typography variant="h6">新規ユーザー登録</Typography>
       </Box>
       <Box mt={2}>
         <TextField
+          fullWidth
           id="standard-basic"
           name="displayName"
           label="表示名"
@@ -41,6 +55,7 @@ export const SignUp: React.FC = (props: any) => {
       </Box>
       <Box mt={2}>
         <TextField
+          fullWidth
           id="standard-basic"
           name="email"
           label="Email"
@@ -50,6 +65,7 @@ export const SignUp: React.FC = (props: any) => {
       </Box>
       <Box mt={2}>
         <TextField
+          fullWidth
           id="standard-password-input"
           type="password"
           name="password"
@@ -58,19 +74,13 @@ export const SignUp: React.FC = (props: any) => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </Box>
-      <Box mt={2}>
-        <Button
-          variant="contained"
-          onClick={async () => {
-            try {
-              await auth.createUserWithEmailAndPassword(email, password)
-              alert("登録されました")
-            } catch (error) {
-              alert(error.message)
-            }
-          }}
-        >
+      <Box mt={2} display="flex">
+        <Button variant="contained" onClick={onSubmit}>
           登録
+        </Button>
+        <Box pl={2} />
+        <Button variant="contained" onClick={onBack}>
+          戻る
         </Button>
       </Box>
     </Box>

@@ -1,40 +1,49 @@
-import { Button, Typography, Box } from "@material-ui/core"
+import { Box, Typography } from "@material-ui/core"
 import React, { useContext, useEffect, useState } from "react"
-import { auth, db } from "../../firebase"
-import firebase from "firebase"
+import { app, db } from "../../firebase"
 
 import { AuthContext } from "../molecules/Auth"
 import { CertTimeList } from "../organisms/CertTimeList"
+import { MyAppBar } from "../molecules/MyAppBar"
+import { TUser } from "../../models/Users"
 
 export const Home = () => {
   const { loginUser } = useContext(AuthContext)
-  const [user, setUser] = useState<any>()
+  const [user, setUser] = useState<TUser>()
+  const [totalHours, setTotalHours] = useState<number>(0)
 
   const getUserInfo = async (uid: string) => {
-    console.log(uid)
     const doc = await db.collection("users").doc(uid).get()
-    console.log(doc.data())
-    setUser(doc.data())
+    setUser({ ...doc.data(), uid } as TUser)
   }
   useEffect(() => {
     loginUser && getUserInfo(loginUser.uid)
   }, [loginUser])
 
+  const onLogout = () => {
+    app.auth().signOut()
+  }
+
   return (
-    <Box pl={2}>
-      <Typography variant="h5">認定時間チェッカー</Typography>
-      <Box mt={2}>
-        <Button variant="contained" onClick={() => auth.signOut()}>
-          ログアウト
-        </Button>
-      </Box>
+    <Box>
+      <MyAppBar title="認定時間チェッカー" onExitApp={onLogout} />
       {user && (
         <Box>
-          <Box>{user.email}</Box>
-          <Box>{user.displayName}</Box>
+          <Box pt={1}>
+            <Typography variant="body1">
+              ユーザー：{user.displayName}（{user.email}）
+            </Typography>
+          </Box>
+          <Box pt={1}>
+            <Typography variant="body1">
+              認定時間合計：{Math.floor(totalHours)} 時間
+            </Typography>
+          </Box>
+          <Box pt={1}>
+            <CertTimeList currentUser={user} totalHours={setTotalHours} />
+          </Box>
         </Box>
       )}
-      <CertTimeList />
     </Box>
   )
 }

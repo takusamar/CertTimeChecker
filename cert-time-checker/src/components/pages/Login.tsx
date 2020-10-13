@@ -9,12 +9,21 @@ const Login: React.FC = (props: any) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
+  const onSubmitLogin = async () => {
+    login(email, password, props.history)
+  }
+
+  const onSubmitSignUp = async () => {
+    props.history.push("/signup")
+  }
+
   return (
-    <Box pl={2}>
+    <Box>
       <Typography variant="h5">認定時間チェッカー</Typography>
       <Box mt={2}>
         <Typography variant="h6">ログイン</Typography>
         <TextField
+          fullWidth
           id="standard-basic"
           name="email"
           label="Email"
@@ -24,6 +33,7 @@ const Login: React.FC = (props: any) => {
       </Box>
       <Box mt={2}>
         <TextField
+          fullWidth
           id="standard-password-input"
           type="password"
           name="password"
@@ -33,23 +43,13 @@ const Login: React.FC = (props: any) => {
         />
       </Box>
       <Box mt={2}>
-        <Button
-          variant="contained"
-          onClick={async () => {
-            login(email, password, props.history)
-          }}
-        >
+        <Button variant="contained" onClick={onSubmitLogin}>
           ログイン
         </Button>
       </Box>
       <Box mt={4}>
         <Typography variant="h6">新規ユーザー</Typography>
-        <Button
-          variant="contained"
-          onClick={async () => {
-            props.history.push("/signup")
-          }}
-        >
+        <Button variant="contained" onClick={onSubmitSignUp}>
           新規ユーザー登録
         </Button>
       </Box>

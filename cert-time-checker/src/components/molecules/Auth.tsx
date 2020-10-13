@@ -1,12 +1,11 @@
-import { app, User } from "firebase"
+import { User } from "firebase"
 import React, { createContext, useEffect, useState } from "react"
 
-import { auth } from "../../firebase"
+import { app } from "../../firebase"
 
-type TUser = User | null | undefined
 interface IAuthContext {
   login: any
-  loginUser: TUser
+  loginUser: User | null | undefined
 }
 
 export const AuthContext = createContext<IAuthContext>({
@@ -15,18 +14,18 @@ export const AuthContext = createContext<IAuthContext>({
 })
 
 export const AuthProvider: React.FC = (props: any) => {
-  const [loginUser, setLoginUser] = useState<TUser>(undefined)
+  const [loginUser, setLoginUser] = useState<User | null | undefined>(undefined)
 
   const login = async (email: string, password: string, history: string[]) => {
     try {
-      await auth.signInWithEmailAndPassword(email, password)
+      await app.auth().signInWithEmailAndPassword(email, password)
       history.push("/")
     } catch (error) {
       alert(error.message)
     }
   }
   useEffect(() => {
-    auth.onAuthStateChanged((user: TUser) => {
+    app.auth().onAuthStateChanged((user: User | null | undefined) => {
       setLoginUser(user)
     })
   }, [])

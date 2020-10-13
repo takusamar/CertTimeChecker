@@ -6,16 +6,19 @@ import Login from "./components/pages/Login"
 import { Home } from "./components/pages/Home"
 import { PrivateRoute } from "./components/molecules/PrivateRoute"
 import { SignUp } from "./components/pages/SignUp"
+import { Box } from "@material-ui/core"
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <PrivateRoute path="/" component={Home} />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/login" component={Login} />
-      </Router>
-    </AuthProvider>
+    <Box p={2}>
+      <AuthProvider>
+        <Router>
+          <PrivateRoute path="/" component={Home} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/login" component={Login} />
+        </Router>
+      </AuthProvider>
+    </Box>
   )
 }
 
