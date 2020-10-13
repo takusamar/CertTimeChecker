@@ -6,33 +6,33 @@ import { auth } from "../../firebase"
 type TUser = User | null | undefined
 interface IAuthContext {
   login: any
-  currentUser: TUser
+  loginUser: TUser
 }
 
 export const AuthContext = createContext<IAuthContext>({
   login: undefined,
-  currentUser: undefined,
+  loginUser: undefined,
 })
 
 export const AuthProvider: React.FC = (props: any) => {
-  const [currentUser, setCurrentUser] = useState<TUser>(undefined)
+  const [loginUser, setLoginUser] = useState<TUser>(undefined)
 
   const login = async (email: string, password: string, history: string[]) => {
     try {
       await auth.signInWithEmailAndPassword(email, password)
       history.push("/")
     } catch (error) {
-      alert(error)
+      alert(error.message)
     }
   }
   useEffect(() => {
     auth.onAuthStateChanged((user: TUser) => {
-      setCurrentUser(user)
+      setLoginUser(user)
     })
   }, [])
 
   return (
-    <AuthContext.Provider value={{ login: login, currentUser: currentUser }}>
+    <AuthContext.Provider value={{ login, loginUser }}>
       {props.children}
     </AuthContext.Provider>
   )

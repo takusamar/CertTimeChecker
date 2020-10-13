@@ -9,7 +9,7 @@ interface OwnProps {
 }
 
 export const PrivateRoute: React.FC<OwnProps> = (props) => {
-  const { currentUser } = useContext(AuthContext)
-  const component = currentUser ? props.component : Login
+  const { loginUser } = useContext(AuthContext)
+  const component = loginUser ? props.component : Login
   return <Route exact path={props.path} component={component} />
 }

@@ -6,18 +6,14 @@ import { AuthContext } from "../molecules/Auth"
 const Login: React.FC = (props: any) => {
   const { login } = useContext(AuthContext)
 
-  const [email, setEmail] = useState<string>("")
-  const [password, setPassword] = useState<string>("")
-
-  const handleSubmit = () => {
-    login(email, password, props.history)
-  }
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   return (
     <Box pl={2}>
       <Typography variant="h5">認定時間チェッカー</Typography>
       <Box mt={2}>
-        <Typography variant="h6">ユーザー登録済み</Typography>
+        <Typography variant="h6">ログイン</Typography>
         <TextField
           id="standard-basic"
           name="email"
@@ -37,13 +33,23 @@ const Login: React.FC = (props: any) => {
         />
       </Box>
       <Box mt={2}>
-        <Button variant="contained" onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          onClick={async () => {
+            login(email, password, props.history)
+          }}
+        >
           ログイン
         </Button>
       </Box>
       <Box mt={4}>
         <Typography variant="h6">新規ユーザー</Typography>
-        <Button variant="contained" onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          onClick={async () => {
+            props.history.push("/signup")
+          }}
+        >
           新規ユーザー登録
         </Button>
       </Box>
