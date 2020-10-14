@@ -1,11 +1,13 @@
-import { Box, Typography } from "@material-ui/core"
+import { Box, Divider, Typography } from "@material-ui/core"
 import React, { useContext, useEffect, useState } from "react"
-import { app, db } from "../../firebase"
+import { db } from "../../firebase"
 
 import { AuthContext } from "../molecules/Auth"
 import { CertTimeList } from "../organisms/CertTimeList"
 import { MyAppBar } from "../molecules/MyAppBar"
 import { TUser } from "../../models/Users"
+import { CertTimeForm } from "../organisms/CertTimeForm"
+import { SpaceDivider } from "../atoms/SpaceDivider"
 
 export const Home = () => {
   const { loginUser } = useContext(AuthContext)
@@ -20,13 +22,8 @@ export const Home = () => {
     loginUser && getUserInfo(loginUser.uid)
   }, [loginUser])
 
-  const onLogout = () => {
-    app.auth().signOut()
-  }
-
   return (
     <Box>
-      <MyAppBar title="認定時間チェッカー" onExitApp={onLogout} />
       {user && (
         <Box>
           <Box pt={1}>
@@ -34,6 +31,11 @@ export const Home = () => {
               ユーザー：{user.displayName}（{user.email}）
             </Typography>
           </Box>
+          <SpaceDivider />
+          <Box pt={1}>
+            <CertTimeForm currentUser={user} />
+          </Box>
+          <SpaceDivider />
           <Box pt={1}>
             <Typography variant="body1">
               認定時間合計：{Math.floor(totalHours)} 時間

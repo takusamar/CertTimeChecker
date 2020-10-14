@@ -6,6 +6,5 @@ export type TCertTimes =
       date: firestore.Timestamp
       instructor: string
       title: string
-      uid: string
     }
   | undefined

@@ -72,9 +72,9 @@ export const StickyHeadTable: React.FC<OwnProps> = (props) => {
             {rows &&
               rows
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
+                .map((row, idx) => {
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.uid}>
+                    <TableRow hover role="checkbox" tabIndex={-1} key={idx}>
                       {columns.map((column) => {
                         const value = row[column.id]
                         return (

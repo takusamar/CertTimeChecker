@@ -5,8 +5,10 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core"
-import React from "react"
+import React, { useContext } from "react"
 import { ExitToApp, Menu } from "@material-ui/icons"
+import { AuthContext } from "./Auth"
+import { app } from "../../firebase"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,39 +22,40 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    fontSize: 16,
+    color: "#FFFFFF",
   },
 }))
 
 interface OwnProps {
   title: string
-  onExitApp(): void
 }
 export const MyAppBar: React.FC<OwnProps> = (props) => {
+  const { loginUser } = useContext(AuthContext)
+
   const classes = useStyles()
+
+  const onLogout = () => {
+    app.auth().signOut()
+  }
 
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
-        >
-          <Menu />
-        </IconButton>
         <Typography variant="h6" className={classes.title}>
           {props.title}
         </Typography>
-        <IconButton
-          edge="end"
-          className={classes.exitButton}
-          color="inherit"
-          aria-label="account"
-          onClick={props.onExitApp}
-        >
-          <ExitToApp />
-        </IconButton>
+        {loginUser && (
+          <IconButton
+            edge="end"
+            className={classes.exitButton}
+            color="inherit"
+            aria-label="account"
+            onClick={onLogout}
+          >
+            <ExitToApp />
+          </IconButton>
+        )}
       </Toolbar>
     </AppBar>
   )

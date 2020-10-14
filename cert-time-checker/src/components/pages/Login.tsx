@@ -1,6 +1,7 @@
 import { Box, Button, TextField, Typography } from "@material-ui/core"
 import React, { useContext, useState } from "react"
 import { withRouter } from "react-router"
+import { SpaceDivider } from "../atoms/SpaceDivider"
 import { AuthContext } from "../molecules/Auth"
 
 const Login: React.FC = (props: any) => {
@@ -19,7 +20,6 @@ const Login: React.FC = (props: any) => {
 
   return (
     <Box>
-      <Typography variant="h5">認定時間チェッカー</Typography>
       <Box mt={2}>
         <Typography variant="h6">ログイン</Typography>
         <TextField
@@ -43,13 +43,14 @@ const Login: React.FC = (props: any) => {
         />
       </Box>
       <Box mt={2}>
-        <Button variant="contained" onClick={onSubmitLogin}>
+        <Button variant="contained" color="primary" onClick={onSubmitLogin}>
           ログイン
         </Button>
       </Box>
-      <Box mt={4}>
+      <SpaceDivider />
+      <Box mt={2}>
         <Typography variant="h6">新規ユーザー</Typography>
-        <Button variant="contained" onClick={onSubmitSignUp}>
+        <Button variant="contained" color="primary" onClick={onSubmitSignUp}>
           新規ユーザー登録
         </Button>
       </Box>

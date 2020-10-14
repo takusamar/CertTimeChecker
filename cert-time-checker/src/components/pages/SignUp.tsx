@@ -39,7 +39,6 @@ export const SignUp: React.FC = (props: any) => {
 
   return (
     <Box>
-      <Typography variant="h5">認定時間チェッカー</Typography>
       <Box mt={2}>
         <Typography variant="h6">新規ユーザー登録</Typography>
       </Box>
@@ -75,11 +74,11 @@ export const SignUp: React.FC = (props: any) => {
         />
       </Box>
       <Box mt={2} display="flex">
-        <Button variant="contained" onClick={onSubmit}>
+        <Button variant="contained" color="primary" onClick={onSubmit}>
           登録
         </Button>
         <Box pl={2} />
-        <Button variant="contained" onClick={onBack}>
+        <Button variant="contained" color="primary" onClick={onBack}>
           戻る
         </Button>
       </Box>

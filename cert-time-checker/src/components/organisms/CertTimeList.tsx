@@ -20,15 +20,15 @@ export const CertTimeList: React.FC<OwnProps> = (props) => {
       id: "date",
       label: "日付",
       minWidth: 40,
-      align: "left",
+      align: "center",
       format: (value: firestore.Timestamp) =>
         dayjs(new Date(value.seconds * 1000)).format("YYYY-MM-DD"),
     },
     {
       id: "certMinutes",
-      label: "時間",
+      label: "認定時間",
       minWidth: 30,
-      align: "right",
+      align: "center",
       format: (value: number) => dayjs().hour(0).minute(value).format("H:mm"),
     },
     {
@@ -45,20 +45,16 @@ export const CertTimeList: React.FC<OwnProps> = (props) => {
     },
   ]
 
-  const colRef = db.collection("certTimes")
-
   const getCertTimes = () => {
     if (props.currentUser && props.currentUser.uid) {
-      console.log("currentUser: " + props.currentUser.uid)
-      colRef
-        .where("uid", "==", props.currentUser.uid)
+      db.collection("users")
+        .doc(props.currentUser.uid)
+        .collection("certTimes")
         .orderBy("date", "desc")
         .onSnapshot((snapshots) => {
-          console.log("snapshots: ")
           const docs = snapshots.docs.map((doc) => {
             return doc.data() as TCertTimes
           })
-          console.log(docs)
           setCertTimes(docs)
         })
     }
