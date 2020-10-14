@@ -63,6 +63,7 @@ export const CertTimeList: React.FC<OwnProps> = (props) => {
   useEffect(() => {
     const unsubscribe = getCertTimes
     return unsubscribe()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props])
 
   useEffect(() => {
@@ -72,7 +73,7 @@ export const CertTimeList: React.FC<OwnProps> = (props) => {
       }, 0)
       props.totalHours(totalMinutes / 60)
     }
-  }, [certTimes])
+  }, [certTimes, props])
   return (
     <Box>
       <Typography variant="body1">実績詳細</Typography>

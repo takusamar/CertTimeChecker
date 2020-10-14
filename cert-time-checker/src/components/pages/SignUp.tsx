@@ -35,6 +35,7 @@ export const SignUp: React.FC = (props: any) => {
       setUserInfo(loginUser.uid)
       props.history.push("/")
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginUser])
 
   return (

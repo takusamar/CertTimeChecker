@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-ui/core"
 import React, { useContext } from "react"
-import { ExitToApp, Menu } from "@material-ui/icons"
+import { ExitToApp } from "@material-ui/icons"
 import { AuthContext } from "./Auth"
 import { app } from "../../firebase"
 
@@ -25,13 +25,18 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 16,
     color: "#FFFFFF",
   },
+  name: {
+    flexGrow: 1,
+    fontSize: 16,
+    color: "#FFFFFF",
+  },
 }))
 
 interface OwnProps {
   title: string
 }
 export const MyAppBar: React.FC<OwnProps> = (props) => {
-  const { loginUser } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   const classes = useStyles()
 
@@ -42,15 +47,15 @@ export const MyAppBar: React.FC<OwnProps> = (props) => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
+        <Typography variant="subtitle1" className={classes.title}>
           {props.title}
         </Typography>
-        {loginUser && (
-          <Typography variant="caption" className={classes.title}>
-            {loginUser.displayName}
+        {user && (
+          <Typography variant="subtitle2" className={classes.name}>
+            {user.displayName}
           </Typography>
         )}
-        {loginUser && (
+        {user && (
           <IconButton
             edge="end"
             className={classes.exitButton}

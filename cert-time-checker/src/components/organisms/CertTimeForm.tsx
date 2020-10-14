@@ -1,10 +1,8 @@
 import { Box, Button, TextField, Typography } from "@material-ui/core"
-import dayjs, { Dayjs } from "dayjs"
+import dayjs from "dayjs"
 import React, { useState } from "react"
-import { TCertTimes } from "../../models/CertTimes"
 import { TUser } from "../../models/Users"
 import { db } from "../../firebase"
-import { firestore } from "firebase"
 
 const customParseFormat = require("dayjs/plugin/customParseFormat")
 dayjs.extend(customParseFormat)
@@ -69,7 +67,7 @@ export const CertTimeForm: React.FC<OwnProps> = (props) => {
         <Box width={150}>
           <TextField
             fullWidth
-            id="standard-basic"
+            id="standard-basic1"
             name="title"
             label="講座名"
             value={title}
@@ -80,7 +78,7 @@ export const CertTimeForm: React.FC<OwnProps> = (props) => {
         <Box width={100}>
           <TextField
             fullWidth
-            id="standard-basic"
+            id="standard-basic2"
             name="instructor"
             label="講師"
             value={instructor}
