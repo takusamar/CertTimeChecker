@@ -46,6 +46,11 @@ export const MyAppBar: React.FC<OwnProps> = (props) => {
           {props.title}
         </Typography>
         {loginUser && (
+          <Typography variant="caption" className={classes.title}>
+            {loginUser.displayName}
+          </Typography>
+        )}
+        {loginUser && (
           <IconButton
             edge="end"
             className={classes.exitButton}

@@ -73,7 +73,7 @@ export const theme = createMuiTheme({
     },
     button: {
       color: '#FFFFFF',
-      fontSize: 16
+      fontSize: 12
     },
     caption: {
       color: '#FF8FA4',

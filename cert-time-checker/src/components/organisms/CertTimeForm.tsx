@@ -37,30 +37,36 @@ export const CertTimeForm: React.FC<OwnProps> = (props) => {
     <Box>
       <Typography variant="body1">実績を登録</Typography>
       <Box display="flex">
-        <TextField
-          id="date"
-          label="日付"
-          type="date"
-          defaultValue={date}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={(e) => setDate(e.target.value)}
-        />
+        <Box width={150}>
+          <TextField
+            fullWidth
+            id="date"
+            label="日付"
+            type="date"
+            defaultValue={date}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={(e) => setDate(e.target.value)}
+          />
+        </Box>
         <Box pl={2} />
-        <TextField
-          id="time"
-          type="time"
-          name="certMinutes"
-          label="認定時間"
-          value={certMinutes}
-          InputLabelProps={{ shrink: true }}
-          inputProps={{ step: 300 }}
-          onChange={(e) => setCertMinutes(e.target.value)}
-        />
+        <Box width={100}>
+          <TextField
+            fullWidth
+            id="time"
+            type="time"
+            name="certMinutes"
+            label="認定時間"
+            value={certMinutes}
+            InputLabelProps={{ shrink: true }}
+            inputProps={{ step: 300 }}
+            onChange={(e) => setCertMinutes(e.target.value)}
+          />
+        </Box>
       </Box>
       <Box display="flex">
-        <Box width={200}>
+        <Box width={150}>
           <TextField
             fullWidth
             id="standard-basic"
