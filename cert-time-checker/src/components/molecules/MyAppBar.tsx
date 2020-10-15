@@ -1,12 +1,11 @@
 import {
   AppBar,
-  IconButton,
+  Button,
   makeStyles,
   Toolbar,
   Typography,
 } from "@material-ui/core"
 import React, { useContext } from "react"
-import { ExitToApp } from "@material-ui/icons"
 import { AuthContext } from "./Auth"
 import { app } from "../../firebase"
 
@@ -41,7 +40,10 @@ export const MyAppBar: React.FC<OwnProps> = (props) => {
   const classes = useStyles()
 
   const onLogout = () => {
-    app.auth().signOut()
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm("ログアウトしますか？")) {
+      app.auth().signOut()
+    }
   }
 
   return (
@@ -51,20 +53,9 @@ export const MyAppBar: React.FC<OwnProps> = (props) => {
           {props.title}
         </Typography>
         {user && (
-          <Typography variant="subtitle2" className={classes.name}>
+          <Button variant="contained" color="secondary" onClick={onLogout}>
             {user.displayName}
-          </Typography>
-        )}
-        {user && (
-          <IconButton
-            edge="end"
-            className={classes.exitButton}
-            color="inherit"
-            aria-label="account"
-            onClick={onLogout}
-          >
-            <ExitToApp />
-          </IconButton>
+          </Button>
         )}
       </Toolbar>
     </AppBar>
